@@ -1,13 +1,16 @@
 import React from 'react';
 import {IPropsChildren} from "../interfaces/Interfaces";
 import Content from "./Content";
+import Sidebar from "./sidebar/Sidebar";
 
 const Main = (props: IPropsChildren) => {
     return (
-        <div className={'main-wrapper'}>
-        {/*//     <Sidebar />*/}
+        <>
+        <Sidebar />
+        <div className='main-wrapper'>
             <Content>{props.children}</Content>
         </div>
+        </>
     );
 };
 

@@ -5,6 +5,8 @@ import {ACCOUNT_PAGE_ROUTE, HOME_PAGE_ROUTE} from "./constants";
 import Home from "./pages/Home";
 import Account from "./pages/Account";
 import {createRoot} from "react-dom/client";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './sass/index.sass'
 
 function App() {
     return (

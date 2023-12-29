@@ -1,35 +1,21 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import path from 'path';
+import svgr from 'vite-plugin-svgr';
 
 
 export default defineConfig({
-    plugins: [react()],
+    plugins: [
+        react(),
+        svgr(),
+    ],
+    resolve: {
+        alias: {
+            '@': path.resolve(__dirname, './src'),
+            '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
+            '@images': path.resolve(__dirname, './src/images'),
+        },
+    },
 })
 
 
-
-// import { defineConfig } from 'vite';
-// import react from "@vitejs/plugin-react";
-// import svgr from 'vite-plugin-svgr';
-// import path from 'path';
-//
-// export default defineConfig({
-//     css: {
-//         devSourcemap: true,
-//     },
-//     build: {
-//         sourcemap: false,
-//     },
-//     plugins: [
-//         react(),
-//         svgr(),
-//     ],
-//     resolve: {
-//         alias: {
-//             '@': path.resolve(__dirname, './src'),
-//             '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
-//             '@images': path.resolve(__dirname, './src/images'),
-//         },
-//     },
-//
-// });
