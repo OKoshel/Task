@@ -1,49 +1,44 @@
 import React, {useContext, useEffect, useState} from 'react';
 import Post, {IPost} from "../components/Post";
-import axios from "axios";
 import {PostsListContext} from "../context/PostListContext";
+import {useDispatch} from "react-redux";
+import {deleteAllPosts, addPost, deletePost} from "../redux/reducers/todoReducer";
 
 const Test = () => {
-
+    const dispatch = useDispatch();
     const {fetchPosts, getPosts} = useContext(PostsListContext)
 
     useEffect(() => {
         fetchPosts()
-    },[])
+    }, [])
 
-    const postsServer = getPosts()
-    const [posts, setPosts] = useState(postsServer)
+    const posts = getPosts()
+
+
     const [selectedPosts, setSelectedPosts] = useState<number[]>([])
     const [inputName, setInputName] = useState('')
     const [inputBody, setInputBody] = useState('')
     const [filterByTitle, setFilterByTitle] = useState('')
 
 
-    useEffect(()=> {
-        axios.get('https://jsonplaceholder.typicode.com/posts?_limit=4').then((res) => {
-            setPosts(res.data)
-        })
-    }, [])
+    // useEffect(()=> {
+    //     axios.get('https://jsonplaceholder.typicode.com/posts?_limit=4').then((res) => {
+    //         setPosts(res.data)
+    //     })
+    // }, [])
 
-    const addPost = () => {
-        const newPost={
-            id: Number(posts.length * Math.random()),
-            title: inputName,
-            body: inputBody
-        }
-        setPosts([...posts, newPost])
+    const addPostItem = () => {
+        dispatch(addPost({ title: inputName, body: inputBody }));
         setInputName('')
         setInputBody('')
-
-
     }
 
-    const deletePost = (postId: number) => {
-        setPosts(posts.filter((elem: IPost) => elem.id !== postId))
+    const deletePostItem = (postId: number) => {
+        dispatch(deletePost(postId));
     }
-    const deleteAllPosts = () => {
-        const remainingPosts = posts.filter((post) => !selectedPosts.includes(post.id));
-        setPosts(remainingPosts);
+
+    const clearSelectedPosts = () => {
+        dispatch(deleteAllPosts(selectedPosts));
         setSelectedPosts([]);
     }
 
@@ -92,7 +87,7 @@ const Test = () => {
                     value={inputBody}
                     onChange={(e) => setInputBody(e.target.value)}
                 />
-                <button className="btn btn-success" onClick={addPost}>Add Post</button>
+                <button className="btn btn-success" onClick={addPostItem}>Add Post</button>
             </div>
 
             <div className="mt-3">
@@ -102,14 +97,14 @@ const Test = () => {
                     <p>Selected All</p>
                 </div>
 
-                {posts.length > 0 ? posts.filter((item) => {
+                {posts.length ? posts?.filter((item) => {
                     return(
                         filterByTitle.toLowerCase() === '' ? item :  item.title.toLowerCase().includes(filterByTitle)
                     )}).map((post: IPost) => {
                     return <Post
                         key={post.id}
                         post={post}
-                        deletePost={deletePost}
+                        deletePost={deletePostItem}
                         toogleCheckbox={toogleCheckbox}
                         isChecked={selectedPosts.includes(post.id)}
                     />
@@ -117,7 +112,7 @@ const Test = () => {
 
             </div>
             <div className="d-flex gap-3">
-                <button className="btn btn-danger" onClick={deleteAllPosts}>Delete all or chosen</button>
+                <button className="btn btn-danger" onClick={clearSelectedPosts}>Delete all or chosen</button>
             </div>
         </div>
     );

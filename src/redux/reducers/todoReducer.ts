@@ -24,19 +24,23 @@ export const fetchPostsThunk = createAsyncThunk<
 
 
 const todoSlice = createSlice({
-    name: "todo",
+    name: "posts",
     initialState,
     reducers: {
-        addTodo: (state, action) => {
-            const newTodo = {
+        addPost: (state, action) => {
+            const newPost = {
                 id: Date.now(),
                 title: action.payload.title,
                 body: action.payload.body
             };
-            state.posts.push(newTodo);
+            state.posts.push(newPost);
         },
-        deleteTodo: (state, action) => {
-            const index = state.posts.filter((todo) => todo.id !== action.payload);
+        deletePost: (state, action) => {
+            state.posts = state.posts.filter((post) => post.id !== action.payload);
+
+            },
+        deleteAllPosts: (state, action) => {
+            state.posts = state.posts.filter((post) => !action.payload.includes(post.id))
 
         },
     },
@@ -55,5 +59,5 @@ const todoSlice = createSlice({
             )
     },
 });
-export const { addTodo, deleteTodo } = todoSlice.actions;
+export const {addPost,deletePost, deleteAllPosts } = todoSlice.actions;
 export default todoSlice.reducer;
