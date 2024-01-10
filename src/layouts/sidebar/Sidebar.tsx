@@ -1,5 +1,5 @@
 import React from 'react';
-import {ACCOUNT_PAGE_ROUTE, HOME_PAGE_ROUTE} from "../../constants";
+import {ACCOUNT_PAGE_ROUTE, HOME_PAGE_ROUTE, TEST_PAGE_ROUTE} from "../../constants";
 
 export const SIDEBAR_ITEMS=
 [
@@ -15,6 +15,12 @@ export const SIDEBAR_ITEMS=
             icon: "",
             href: ACCOUNT_PAGE_ROUTE,
         },
+    {
+        name: "Test",
+        id: 3,
+        icon: "",
+        href: TEST_PAGE_ROUTE,
+    },
 ]
 
 
