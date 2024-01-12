@@ -80,8 +80,6 @@ const Test = () => {
             })
 
         }
-
-
     }
 
     return (
@@ -132,7 +130,13 @@ const Test = () => {
                 }) : <div>Post list is empty</div>}
 
             </div>
-            <Pagination limit={limit} page={page} totalPage={totalPage} onPageChange={onPageChange} />
+            <Pagination
+                limit={limit}
+                page={page}
+                totalPage={totalPage}
+                onPageChange={onPageChange}
+                setPage={setPage}
+            />
 
             <div className="d-flex gap-3">
                 <button className="btn btn-danger" onClick={clearSelectedPosts}>Delete all or chosen</button>

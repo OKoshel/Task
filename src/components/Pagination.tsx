@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {Dispatch, FC, SetStateAction} from 'react';
 
 
 interface Props{
@@ -6,7 +6,7 @@ interface Props{
     page: number,
     limit: number,
     onPageChange: (newPage: number) => void
-    setPage: (page: number) => any
+    setPage: Dispatch<SetStateAction<number>>
 }
 
 const Pagination:FC<Props> = ({page, limit, totalPage, onPageChange, setPage}) => {

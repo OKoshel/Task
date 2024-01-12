@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import {IPost} from "../../components/Post";
-import {IPostsState, PaginationQuery} from "../../interfaces/Interfaces";
-import {getUrlSearchParams} from "../../helperFunctions";
+import {IPostsState} from "../../interfaces/Interfaces";
+
 
 const initialState: IPostsState = {
     posts: [],
