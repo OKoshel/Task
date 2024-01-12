@@ -29,7 +29,7 @@ const Sidebar = () => {
         <div className="sidebar">
         <div className="d-flex gap-3 align-items-center">
             { SIDEBAR_ITEMS.map((item) => {
-                  return <a href={item.href} className="text-decoration-none pointer-event">{item.name}</a>
+                  return <a href={item.href}  key={item.id} className="text-decoration-none pointer-event">{item.name}</a>
               })}
 
         </div>

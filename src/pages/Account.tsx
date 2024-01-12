@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef } from "react"
 import gsap from "gsap"
+import Home from "./Home";
 
 const Account = () => {
     const comp = useRef(null)
@@ -59,6 +60,7 @@ const Account = () => {
                     Welcome.
                 </h1>
             </div>
+            {/*<Home url="api/some/endpoint" />*/}
         </div>
     )
 }

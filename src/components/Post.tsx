@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, HTMLAttributes} from 'react';
 import item from "./Item";
 
 export interface IPost{
@@ -7,7 +7,7 @@ export interface IPost{
     body: string
 }
 
-interface Props{
+interface Props extends HTMLAttributes<HTMLDivElement>{
     post: IPost,
     isChecked: boolean,
     toogleCheckbox: (id: number) => void

@@ -21,6 +21,7 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
+    "src",
+    "dist/assets/index-oJH-n0hy.js"
   ]
 }

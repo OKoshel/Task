@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import {IPost} from "../../components/Post";
-import {IPostsState} from "../../interfaces/Interfaces";
+import {IPostsState, PaginationQuery} from "../../interfaces/Interfaces";
+import {getUrlSearchParams} from "../../helperFunctions";
 
 const initialState: IPostsState = {
     posts: [],
@@ -10,10 +11,12 @@ const initialState: IPostsState = {
 
 export const fetchPostsThunk = createAsyncThunk<
     IPost[],
-    void,
+    {page: number, limit:number},
+    // PaginationQuery,
     { rejectValue: string }
->("posts/fetchPosts", async function (_, { rejectWithValue }) {
-    const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=4');
+>("posts/fetchPosts", async function ({page, limit}, { rejectWithValue }) {
+    // const params = getUrlSearchParams(query);
+    const response = await axios.get(`https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=${limit}`);
     if (response.status === 200) {
         return response.data;
     } else {

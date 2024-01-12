@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Item from '../components/Item';
 
+
+
 const Home = () => {
     const itemsArr = [
         { id: 1, name: 'efewfew' },
@@ -9,6 +11,7 @@ const Home = () => {
     ];
 
     const [value, setValue] = useState('');
+    const [filterInput, setFilterInput] = useState('');
     const [items, setItems] = useState(itemsArr);
     const [selectedItems, setSelectedItems] = useState<number[]>([]);
 
@@ -37,6 +40,7 @@ const Home = () => {
     };
 
 
+
     return (
         <div className="container">
             <div className="d-flex gap-2">
@@ -45,6 +49,12 @@ const Home = () => {
                     className="input"
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
+                />
+                <input
+                    placeholder="Filter by title"
+                    className="input"
+                    value={filterInput}
+                    onChange={(e) => setFilterInput(e.target.value)}
                 />
                 <button className="btn-success btn" onClick={addSmth}>
                     Add smth
@@ -56,7 +66,7 @@ const Home = () => {
                 <>
                     <div>
                         {items.length > 0 &&
-                            items.map((elem) => (
+                            items.filter((item) => filterInput.toLowerCase() === '' ? item : item.name.toLowerCase().includes(filterInput)).map((elem) => (
                                 <Item
                                     name={elem.name}
                                     key={elem.id}
@@ -64,6 +74,7 @@ const Home = () => {
                                     deleteItem={() => deleteItem(elem.id)}
                                     toggleCheckbox={() => toggleCheckbox(elem.id)}
                                     isChecked={selectedItems.includes(elem.id)}
+
                                 />
                             ))}
                     </div>
@@ -78,3 +89,23 @@ const Home = () => {
 };
 
 export default Home;
+
+// const Home = ({url}: {url: string}) => {
+//     const { value, isLoading, error } = UseBackground(async () => {
+//         const response = await fetch(url);
+//         const result = await response.text();
+//         return result;
+//     }, [url]);
+//
+//     return (
+//         <div>
+//             {isLoading
+//                 ? <div>Loading...</div>
+//                 : error
+//                     ? <div>Error: {error.message}</div>
+//                     : <div>Value: {value}</div>
+//             }
+//         </div>
+//     );
+// }
+// export default Home;

@@ -3,29 +3,49 @@ import Post, {IPost} from "../components/Post";
 import {PostsListContext} from "../context/PostListContext";
 import {useDispatch} from "react-redux";
 import {deleteAllPosts, addPost, deletePost} from "../redux/reducers/todoReducer";
+import Pagination from "../components/Pagination";
 
 const Test = () => {
     const dispatch = useDispatch();
     const {fetchPosts, getPosts} = useContext(PostsListContext)
 
-    useEffect(() => {
-        fetchPosts()
-    }, [])
-
-    const posts = getPosts()
-
-
     const [selectedPosts, setSelectedPosts] = useState<number[]>([])
     const [inputName, setInputName] = useState('')
     const [inputBody, setInputBody] = useState('')
     const [filterByTitle, setFilterByTitle] = useState('')
+    const [page, setPage] = useState(1)
+    const [limit, setLimit] = useState(10)
+
+    const posts = getPosts()
+
+    const totalPage = Math.ceil(100 / 5);
+
+    useEffect(() => {
+        fetchPosts({
+            page: page,
+            limit: limit
+        });
+    }, [page, limit, fetchPosts]);
 
 
-    // useEffect(()=> {
-    //     axios.get('https://jsonplaceholder.typicode.com/posts?_limit=4').then((res) => {
-    //         setPosts(res.data)
-    //     })
-    // }, [])
+    const onPageChange = (newPage: number) => {
+        fetchPosts(
+            {
+                page: newPage,
+                limit: limit,
+            }
+        )
+        setPage(newPage);
+    };
+
+    useEffect(() => {
+        onPageChange(page);
+    }, [page]);
+
+    useEffect(() => {
+        onPageChange(1);
+    }, [limit]);
+
 
     const addPostItem = () => {
         dispatch(addPost({ title: inputName, body: inputBody }));
@@ -107,10 +127,13 @@ const Test = () => {
                         deletePost={deletePostItem}
                         toogleCheckbox={toogleCheckbox}
                         isChecked={selectedPosts.includes(post.id)}
+
                     />
                 }) : <div>Post list is empty</div>}
 
             </div>
+            <Pagination limit={limit} page={page} totalPage={totalPage} onPageChange={onPageChange} />
+
             <div className="d-flex gap-3">
                 <button className="btn btn-danger" onClick={clearSelectedPosts}>Delete all or chosen</button>
             </div>

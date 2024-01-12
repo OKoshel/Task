@@ -15,3 +15,8 @@ export interface IPostListContext{
     getPosts: () => IPost[]
 
 }
+
+export interface PaginationQuery{
+    page: number,
+    limit: number
+}
