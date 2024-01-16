@@ -1,63 +1,32 @@
-import {useLayoutEffect, useRef, useState} from "react"
-import gsap from "gsap"
-import Home from "./Home";
+import {useContext} from "react"
 import {PRODUCTS} from "../mocks";
 import {Card, CardContent, CardMedia, Typography} from "@mui/material";
 import { ShoppingCart } from '@mui/icons-material'
 import {useNavigate} from "react-router-dom";
+import {IProduct} from "../interfaces/Interfaces";
+import {addToCart} from "../redux/reducers/cartReducer";
+import {useDispatch} from "react-redux";
+import {CartContext} from "../context/cart/CartContext";
+
 
 const Store = () => {
-
+    const dispatch = useDispatch();
     const navigate = useNavigate()
+    const {getCartCount} = useContext(CartContext)
 
-    const [selectedItems, setSelectedItems] = useState([])
+    const countProductsInCart = getCartCount()
 
-    const addToBucket = (item: any) => {
-      setSelectedItems(prev => [...prev, item] )
+    const addToBucket = (item: IProduct) => {
+        dispatch(addToCart(item))
 
     }
 
-    console.log(selectedItems)
 
-
-    // const comp = useRef(null)
-
-    // useLayoutEffect(() => {
-    //     let ctx = gsap.context(() => {
-    //         const t1 = gsap.timeline()
-    //         t1.from("#intro-slider", {
-    //             xPercent: "-100",
-    //             duration: 1.3,
-    //             delay: 0.3,
-    //         })
-    //             .from(["#title-1", "#title-2", "#title-3"], {
-    //                 opacity: 0,
-    //                 x: "+=100",
-    //                 stagger: 0.5,
-    //             })
-    //             .to(["#title-1", "#title-2", "#title-3"], {
-    //                 opacity: 0,
-    //                 y: "-=20",
-    //                 delay: 0.3,
-    //                 stagger: 0.5,
-    //             })
-    //             .to("#intro-slider", {
-    //                 xPercent: "-100",
-    //                 duration: 1.3,
-    //             })
-    //             .from("#welcome", {
-    //                 opacity: 0,
-    //                 duration: 0.5,
-    //             })
-    //     }, comp)
-    //
-    //     return () => ctx.revert()
-    // }, [])
     return (
         <div className="d-flex gap-4 flex-wrap m-auto">
         {PRODUCTS.map((product) => {
             return (
-                <Card sx={{ minWidth: 345}}>
+                <Card sx={{ minWidth: 345}} key={product.id}>
                     <CardMedia
                         sx={{ height: 140 }}
                         image={product.image}
@@ -80,25 +49,10 @@ const Store = () => {
 
             <div className='shopping-cart' onClick={() => navigate('/cart')}>
                 <ShoppingCart id='cartIcon'/>
-                <p>0</p>
+                <p>{countProductsInCart}</p>
             </div>
         </div>
-        // <div className="relative" ref={comp}>
-        //     <div
-        //         id="intro-slider"
-        //         className="h-screen p-10 absolute top-0 left-0 font-spaceGrotesk z-10 w-full flex flex-col tracking-tight"
-        //     >
-        //         <h1 className="text-3xl" id="title-1">
-        //             Software Engineer
-        //         </h1>
-        //         <h1 className="text-3xl" id="title-2">
-        //             Designer
-        //         </h1>
-        //         <h1 className="text-3xl" id="title-3">
-        //             Freelancer
-        //         </h1>
-        //     </div>
-        // </div>
+
     )
 }
 

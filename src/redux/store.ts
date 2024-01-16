@@ -1,11 +1,13 @@
 import {AnyAction, configureStore, ThunkDispatch} from "@reduxjs/toolkit";
 import todoReducer from "./reducers/todoReducer";
 import {useDispatch} from "react-redux";
+import cartReducer from "./reducers/cartReducer";
 
 
 const store = configureStore({
     reducer: {
         posts: todoReducer,
+        cart: cartReducer
     },
 });
 

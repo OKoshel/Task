@@ -21,6 +21,7 @@ import {PostListState} from "./context/postListState";
 import * as THREE from 'three';
 import Three from "./pages/Three";
 import Cart from "./components/bucket/Cart";
+import {CartState} from "./context/cart/CartState";
 
 function App() {
     return (
@@ -35,7 +36,7 @@ function App() {
                         />
                         <Route
                             path={STORE_PAGE_ROUTE}
-                            element={<Store/>}
+                            element={<CartState><Store/></CartState>}
                         />
                         <Route
                             path={TEST_PAGE_ROUTE}
@@ -47,7 +48,7 @@ function App() {
                         />
                         <Route
                             path={CART_PAGE_ROUTE}
-                            element={<Cart/>}
+                            element={<CartState><Cart/></CartState>}
                         />
                     </Routes>
                 </Main>
