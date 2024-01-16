@@ -1,9 +1,9 @@
 import React, {useContext, useEffect, useState} from 'react';
-import Post, {IPost} from "../components/Post";
-import {PostsListContext} from "../context/PostListContext";
+import Post, {IPost} from "../components/posts/Post";
+import {PostsListContext} from "../context/posts/PostListContext";
 import {useDispatch} from "react-redux";
 import {deleteAllPosts, addPost, deletePost} from "../redux/reducers/todoReducer";
-import Pagination from "../components/Pagination";
+import Pagination from "../components/general/Pagination";
 
 const Test = () => {
     const dispatch = useDispatch();
@@ -86,7 +86,7 @@ const Test = () => {
         <div>
             <input type="text"
                    placeholder="Filter by"
-                   className="input mb-5"
+                   className="input-search mb-5"
                    value={filterByTitle}
                    onChange={(e) => setFilterByTitle(e.target.value)}
             />

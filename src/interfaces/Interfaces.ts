@@ -1,4 +1,4 @@
-import {IPost} from "../components/Post";
+import {IPost} from "../components/posts/Post";
 
 export interface IPropsChildren {
     children: React.ReactNode;

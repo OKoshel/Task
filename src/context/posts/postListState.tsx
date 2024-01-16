@@ -1,9 +1,9 @@
-import {useThunkDispatch} from "../redux/store";
-import {fetchPostsThunk} from "../redux/reducers/todoReducer";
-import {IPost} from "../components/Post";
+import {useThunkDispatch} from "../../redux/store";
+import {fetchPostsThunk} from "../../redux/reducers/todoReducer";
+import {IPost} from "../../components/posts/Post";
 import {PostsListContext} from "./PostListContext";
-import {useAppSelector} from "../redux/hooks/redux";
-import {PaginationQuery} from "../interfaces/Interfaces";
+import {useAppSelector} from "../../redux/hooks/redux";
+import {PaginationQuery} from "../../interfaces/Interfaces";
 
 
 export const PostListState = ({ children }: any) => {

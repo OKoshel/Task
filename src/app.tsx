@@ -7,7 +7,7 @@ import {
     HOME_PAGE_ROUTE,
     STORE_PAGE_ROUTE,
     TEST_PAGE_ROUTE,
-    THREE_PAGE_ROUTE
+
 } from "./constants";
 import Home from "./pages/Home";
 import Store from "./pages/Store";
@@ -17,9 +17,7 @@ import './sass/index.sass'
 import Test from "./pages/Test";
 import store from "./redux/store";
 import {Provider} from "react-redux";
-import {PostListState} from "./context/postListState";
-import * as THREE from 'three';
-import Three from "./pages/Three";
+import {PostListState} from "./context/posts/postListState";
 import Cart from "./components/bucket/Cart";
 import {CartState} from "./context/cart/CartState";
 
@@ -42,10 +40,7 @@ function App() {
                             path={TEST_PAGE_ROUTE}
                             element={<PostListState><Test/></PostListState>}
                         />
-                        <Route
-                            path={THREE_PAGE_ROUTE}
-                            element={<Three/>}
-                        />
+
                         <Route
                             path={CART_PAGE_ROUTE}
                             element={<CartState><Cart/></CartState>}

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import {IPost} from "../../components/Post";
+import {IPost} from "../../components/posts/Post";
 import {IPostsState} from "../../interfaces/Interfaces";
 
 
