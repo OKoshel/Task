@@ -1,9 +1,16 @@
-import React, {Component, ReactDOM, StrictMode} from 'react';
+import React, { StrictMode} from 'react';
 import Main from "./layouts/Main";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {ACCOUNT_PAGE_ROUTE, HOME_PAGE_ROUTE, TEST_PAGE_ROUTE} from "./constants";
+import {
+
+    CART_PAGE_ROUTE,
+    HOME_PAGE_ROUTE,
+    STORE_PAGE_ROUTE,
+    TEST_PAGE_ROUTE,
+    THREE_PAGE_ROUTE
+} from "./constants";
 import Home from "./pages/Home";
-import Account from "./pages/Account";
+import Store from "./pages/Store";
 import {createRoot} from "react-dom/client";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './sass/index.sass'
@@ -11,6 +18,9 @@ import Test from "./pages/Test";
 import store from "./redux/store";
 import {Provider} from "react-redux";
 import {PostListState} from "./context/postListState";
+import * as THREE from 'three';
+import Three from "./pages/Three";
+import Cart from "./components/bucket/Cart";
 
 function App() {
     return (
@@ -24,12 +34,20 @@ function App() {
                             element={<Home/>}
                         />
                         <Route
-                            path={ACCOUNT_PAGE_ROUTE}
-                            element={<Account/>}
+                            path={STORE_PAGE_ROUTE}
+                            element={<Store/>}
                         />
                         <Route
                             path={TEST_PAGE_ROUTE}
                             element={<PostListState><Test/></PostListState>}
+                        />
+                        <Route
+                            path={THREE_PAGE_ROUTE}
+                            element={<Three/>}
+                        />
+                        <Route
+                            path={CART_PAGE_ROUTE}
+                            element={<Cart/>}
                         />
                     </Routes>
                 </Main>

@@ -97,3 +97,108 @@ a
 .custom-checkbox:disabled+label::before
   background-color: #e9ecef
 
+.css-1999db7-MuiCardMedia-root
+  height: 200px !important
+  background-size: contain !important
+
+.cart
+  display: flex
+  margin: 30px auto
+  height: max-content
+  padding: 20px 20px 0 20px
+  gap: 20px
+  flex: 1
+
+
+#cartIcon
+  fill: white
+
+
+.cart__left
+  padding: 20px
+  width: 100%
+  background-color: gainsboro
+
+
+.cart__left h3
+  font-size: 32px
+  font-weight: 450
+  padding-bottom: 20px
+  border-bottom: 1px solid gainsboro
+
+
+.cart__title
+  margin-right: 10px
+  padding: 10px
+  border-bottom: 1px solid lightgray
+
+
+.shopping-cart
+  background-color: black
+  position: relative
+  padding: 25px
+  border-radius: 100px
+  position: fixed
+  bottom: 40px
+  right: 3%
+  z-index: 1
+
+
+.shopping-cart:active
+  box-shadow: 0 4px 4px gray
+
+
+
+.shopping-cart > p
+  position: absolute
+  top: 0
+  right: 0
+  background-color: red
+  padding: 4px 8px
+  color: white
+  border-radius: 50px
+
+
+.total
+  display: flex
+  flex-direction: column
+  justify-content: space-around
+  width: 270px
+  height: 110px
+  padding: 20px
+  background: white
+  border-radius: 3px
+  min-width: 350px
+
+
+.total > h2
+  font-weight: 400
+
+
+.total__p
+  font-size: 20px
+  font-weight: 450
+  color: rgb(72, 77, 77)
+
+
+.total > button:active
+  background-color: unset
+  border: 1px solid #FFD814
+
+
+@media(max-width: 800px)
+.total
+  width: unset
+  text-align: center
+
+
+
+@media(max-width: 900px)
+.total
+  min-width: unset
+
+@media(max-width: 800px)
+
+
+.cart__left
+  width: calc(100% - 40px)
