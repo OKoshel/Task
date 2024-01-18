@@ -44,3 +44,9 @@ export interface ICartState{
     summaryPrice: number
 
 }
+
+export interface ITodo{
+    id: number,
+    title: string,
+
+}

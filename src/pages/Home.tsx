@@ -1,28 +1,42 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Item from '../components/posts/Item';
+import {observer} from "mobx-react-lite";
+import todos from "../mobx/todos";
 
 
 
-const Home = () => {
-    const itemsArr = [
-        { id: 1, name: 'efewfew' },
-        { id: 2, name: 'efewwerf4wergfew' },
-        { id: 3, name: 'efewwerfergerferferferfew' },
-    ];
+const Home = observer(() => {
+
+    useEffect(() => {
+     todos.fetchTodos()
+    },[])
+
+
+
+    // const itemsArr = [
+    //     { id: 1, title: 'efewfew' },
+    //     { id: 2, title: 'efewwerf4wergfew' },
+    //     { id: 3, title: 'efewwerfergerferferferfew' },
+    // ];
 
     const [value, setValue] = useState('');
     const [filterInput, setFilterInput] = useState('');
-    const [items, setItems] = useState(itemsArr);
+    // const [items, setItems] = useState(itemsArr);
     const [selectedItems, setSelectedItems] = useState<number[]>([]);
 
     const addSmth = () => {
-        setItems([...items, { id: items.length + Math.random(), name: value }]);
+        const newItem={
+            id: Math.ceil(Math.random()),
+            title: value
+        }
+        todos.addNewTodo(newItem)
+        // setItems([...items, { id: items.length + Math.random(), title: value }]);
         setValue('');
     };
 
     const deleteItem = (itemId: number) => {
-        const updatedItems = items.filter((elem) => elem.id !== itemId);
-        setItems(updatedItems);
+        todos.deleteTodo(itemId)
+
     };
 
     const toggleCheckbox = (itemId: number) => {
@@ -34,8 +48,8 @@ const Home = () => {
     };
 
     const deleteAllItem = () => {
-        const updatedItems = items.filter((elem) => !selectedItems.includes(elem.id));
-        setItems(updatedItems);
+        const updatedItems = todos.todos.filter((elem) => !selectedItems.includes(elem.id));
+        todos.deleteAllTodos(updatedItems)
         setSelectedItems([]);
     };
 
@@ -62,13 +76,13 @@ const Home = () => {
             </div>
 
             <h2 className="mt-3 mb-3">Item List:</h2>
-            {items.length > 0 ?
+            {todos.todos.length > 0 ?
                 <>
                     <div>
-                        {items.length > 0 &&
-                            items.filter((item) => filterInput.toLowerCase() === '' ? item : item.name.toLowerCase().includes(filterInput)).map((elem) => (
+                        {todos.todos.length > 0 &&
+                            todos.todos.filter((item) => filterInput.toLowerCase() === '' ? item : item.title.toLowerCase().includes(filterInput)).map((elem) => (
                                 <Item
-                                    name={elem.name}
+                                    name={elem.title}
                                     key={elem.id}
                                     id={elem.id}
                                     deleteItem={() => deleteItem(elem.id)}
@@ -86,26 +100,7 @@ const Home = () => {
 
         </div>
     );
-};
+});
 
 export default Home;
 
-// const Home = ({url}: {url: string}) => {
-//     const { value, isLoading, error } = UseBackground(async () => {
-//         const response = await fetch(url);
-//         const result = await response.text();
-//         return result;
-//     }, [url]);
-//
-//     return (
-//         <div>
-//             {isLoading
-//                 ? <div>Loading...</div>
-//                 : error
-//                     ? <div>Error: {error.message}</div>
-//                     : <div>Value: {value}</div>
-//             }
-//         </div>
-//     );
-// }
-// export default Home;
