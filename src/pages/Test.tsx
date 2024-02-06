@@ -1,13 +1,12 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Post, {IPost} from "../components/posts/Post";
-import {PostsListContext} from "../context/posts/PostListContext";
-import {useDispatch} from "react-redux";
-import {deleteAllPosts, addPost, deletePost} from "../redux/reducers/todoReducer";
 import Pagination from "../components/general/Pagination";
+import posts from "../mobx/posts";
+import {observer} from "mobx-react-lite";
 
-const Test = () => {
-    const dispatch = useDispatch();
-    const {fetchPosts, getPosts} = useContext(PostsListContext)
+const Test = observer(() => {
+    // const dispatch = useDispatch();
+    // const {fetchPosts, getPosts} = useContext(PostsListContext)
 
     const [selectedPosts, setSelectedPosts] = useState<number[]>([])
     const [inputName, setInputName] = useState('')
@@ -16,24 +15,24 @@ const Test = () => {
     const [page, setPage] = useState(1)
     const [limit, setLimit] = useState(10)
 
-    const posts = getPosts()
+    // const posts = getPosts()
 
     const totalPage = Math.ceil(100 / 5);
 
-    useEffect(() => {
-        fetchPosts({
-            page: page,
-            limit: limit
-        });
-    }, [page, limit, fetchPosts]);
 
+    useEffect(() => {
+        posts.fetchPosts(page, limit)
+        // fetchPosts({
+        //     page: page,
+        //     limit: limit
+        // });
+    }, [page, limit]);
 
     const onPageChange = (newPage: number) => {
-        fetchPosts(
-            {
-                page: newPage,
-                limit: limit,
-            }
+        posts.fetchPosts(
+                newPage,
+                limit,
+
         )
         setPage(newPage);
     };
@@ -48,23 +47,26 @@ const Test = () => {
 
 
     const addPostItem = () => {
-        dispatch(addPost({ title: inputName, body: inputBody }));
+        // dispatch(addPost({ title: inputName, body: inputBody }));
+        posts.addNewPost({ id: Date.now(), title: inputName, body: inputBody })
         setInputName('')
         setInputBody('')
     }
 
     const deletePostItem = (postId: number) => {
-        dispatch(deletePost(postId));
+        posts.deletePost(postId)
+        // dispatch(deletePost(postId));
     }
 
     const clearSelectedPosts = () => {
-        dispatch(deleteAllPosts(selectedPosts));
+        // dispatch(deleteAllPosts(selectedPosts));
+        posts.deleteAllPosts(selectedPosts)
         setSelectedPosts([]);
     }
 
     const toogleCheckbox = (postId: number) => {
         if(postId === -1){
-            const allPostsIds = posts.map((elem) => elem.id)
+            const allPostsIds = posts.posts.map((elem) => elem.id)
             setSelectedPosts(allPostsIds.length === selectedPosts.length ? [] : allPostsIds )
         }
         else{
@@ -115,7 +117,7 @@ const Test = () => {
                     <p>Selected All</p>
                 </div>
 
-                {posts.length ? posts?.filter((item) => {
+                {posts.posts.length ? posts.posts?.filter((item) => {
                     return(
                         filterByTitle.toLowerCase() === '' ? item :  item.title.toLowerCase().includes(filterByTitle)
                     )}).map((post: IPost) => {
@@ -143,6 +145,6 @@ const Test = () => {
             </div>
         </div>
     );
-};
+});
 
 export default Test;

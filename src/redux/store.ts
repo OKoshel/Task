@@ -6,7 +6,7 @@ import cartReducer from "./reducers/cartReducer";
 
 const store = configureStore({
     reducer: {
-        posts: todoReducer,
+        // posts: todoReducer,
         cart: cartReducer
     },
 });
