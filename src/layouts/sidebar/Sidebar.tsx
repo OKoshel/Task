@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    FORM_PAGE_ROUTE,
     HOME_PAGE_ROUTE,
     STORE_PAGE_ROUTE,
     TEST_PAGE_ROUTE,
@@ -20,12 +21,18 @@ export const SIDEBAR_ITEMS=
             icon: "",
             href: STORE_PAGE_ROUTE,
         },
-    {
-        name: "Test",
-        id: 3,
-        icon: "",
-        href: TEST_PAGE_ROUTE,
-    },
+        {
+            name: "Test",
+            id: 3,
+            icon: "",
+            href: TEST_PAGE_ROUTE,
+        },
+        {
+            name: "Form",
+            id: 4,
+            icon: "",
+            href: FORM_PAGE_ROUTE,
+        },
 
 ]
 

@@ -3,7 +3,7 @@ import Main from "./layouts/Main";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {
 
-    CART_PAGE_ROUTE,
+    CART_PAGE_ROUTE, FORM_PAGE_ROUTE,
     HOME_PAGE_ROUTE,
     STORE_PAGE_ROUTE,
     TEST_PAGE_ROUTE,
@@ -20,6 +20,7 @@ import {Provider} from "react-redux";
 import {PostListState} from "./context/posts/postListState";
 import Cart from "./components/bucket/Cart";
 import {CartState} from "./context/cart/CartState";
+import Form from "./pages/Form";
 
 function App() {
     return (
@@ -44,6 +45,10 @@ function App() {
                         <Route
                             path={CART_PAGE_ROUTE}
                             element={<CartState><Cart/></CartState>}
+                        />
+                        <Route
+                            path={FORM_PAGE_ROUTE}
+                            element={<Form/>}
                         />
                     </Routes>
                 </Main>
